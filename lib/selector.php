@@ -11,6 +11,7 @@ abstract class cache_warmup_selector
      * Prepare all cache items
      *
      * @return array
+     * @throws rex_sql_exception
      */
     public static function prepareCacheItems()
     {
@@ -176,6 +177,7 @@ abstract class cache_warmup_selector
      * Get all images and mediatypes as chunked array including 'count' and 'items'
      *
      * @return array
+     * @throws rex_sql_exception
      */
     private static function getChunkedImagesArray()
     {
@@ -250,6 +252,7 @@ abstract class cache_warmup_selector
      * Get all pages and languages as chunked array including 'count' and 'items'
      *
      * @return array
+     * @throws rex_sql_exception
      */
     private static function getChunkedPagesArray()
     {
@@ -269,6 +272,7 @@ abstract class cache_warmup_selector
      */
     private static function chunk(array $items, $chunkSize)
     {
+        $chunkSize = 1;
         return array_chunk($items, $chunkSize);
     }
 }
