@@ -11,6 +11,7 @@ abstract class cache_warmup_selector
      * Prepare all cache items
      *
      * @return array
+     * @throws rex_sql_exception
      */
     public static function prepareCacheItems()
     {
@@ -134,7 +135,7 @@ abstract class cache_warmup_selector
 
             /* prepare and return ------------------------------------------------- */
 
-            // create extension point (EP) for developers to extend selected images
+            // create extension point (EP) for developers to modify images
             $images = rex_extension::registerPoint(new rex_extension_point('CACHE_WARMUP_IMAGES', $images));
             
             // filter images
@@ -176,6 +177,7 @@ abstract class cache_warmup_selector
      * Get all images and mediatypes as chunked array including 'count' and 'items'
      *
      * @return array
+     * @throws rex_sql_exception
      */
     private static function getChunkedImagesArray()
     {
@@ -212,6 +214,10 @@ abstract class cache_warmup_selector
             foreach ($sql as $row) {
                 $mediaTypes[] = $row->getValue('name');
             }
+
+            // create extension point (EP) for developers to modify media types
+            $mediaTypes = rex_extension::registerPoint(new rex_extension_point('CACHE_WARMUP_MEDIATYPES', $mediaTypes));
+
             return $mediaTypes;
         }
         return array();
@@ -240,6 +246,9 @@ abstract class cache_warmup_selector
             $sql = rex_sql::factory();
             $pages = $sql->getArray($query, $params, PDO::FETCH_NUM);
 
+            // create extension point (EP) for developers to modify pages
+            $pages = rex_extension::registerPoint(new rex_extension_point('CACHE_WARMUP_PAGES', $pages));
+
             return $pages;
         }
         return array();
@@ -250,6 +259,7 @@ abstract class cache_warmup_selector
      * Get all pages and languages as chunked array including 'count' and 'items'
      *
      * @return array
+     * @throws rex_sql_exception
      */
     private static function getChunkedPagesArray()
     {
@@ -269,6 +279,7 @@ abstract class cache_warmup_selector
      */
     private static function chunk(array $items, $chunkSize)
     {
+        $chunkSize = 1;
         return array_chunk($items, $chunkSize);
     }
 }

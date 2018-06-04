@@ -41,11 +41,17 @@ class cache_warmup_generator_images extends cache_warmup_generator
                 $media = rex_media::get($image);
                 if ($media instanceof rex_media && $media->isImage()) {
                     foreach ($mediaTypes as $type) {
-                        if (method_exists('rex_media_manager', 'create')) {
-                            rex_media_manager::create($type, $image);
-                        } else {
-                            // use fallback for media_manager < 2.3.0
-                            cache_warmup_media_manager::init($image, $type);
+
+                        // create extension point (EP) for developers to control cache generation
+                        $generateImage = rex_extension::registerPoint(new rex_extension_point('CACHE_WARMUP_GENERATE_IMAGE', $generateImage = true, array($image, $type)));
+
+                        if ($generateImage) {
+                            if (method_exists('rex_media_manager', 'create')) {
+                                rex_media_manager::create($type, $image);
+                            } else {
+                                // use fallback for media_manager < 2.3.0
+                                cache_warmup_media_manager::init($image, $type);
+                            }
                         }
                     }
                 }

@@ -35,3 +35,6 @@ conflicts:
         metainfo: '>=3'
         structure: '>=3'
         yform: '>=3'
+
+console_commands:
+    cache_warmup:warmup: rex_cache_warmup_command_warmup
