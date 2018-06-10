@@ -6,8 +6,7 @@ $body = '
     <h3 class="cache-warmup__target__title"></h3>
     <hr>
     <div class="cache-warmup__target__content row"></div>
-    <div class="cache-warmup__target__progressbar"></div>
-    <div class="cache-warmup__target__alert"></div>';
+    <div class="cache-warmup__target__progressbar"></div>';
 
 $footer = '
     <div class="row">
@@ -21,8 +20,7 @@ $fragment->setVar('footer', $footer, false);
 echo $fragment->parse('core/page/section.php');
 
 /* add cache warmup items JSON */
-
-echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_warmup_selector::prepareCacheItems()) . ';</script>';
+echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_warmup_selector::prepareCacheItems(true, true)) . ';</script>';
 ?>
 
 
@@ -71,18 +69,8 @@ echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_wa
 </script>
 
 
-<script id="cache_warmup_tpl_title_success" type="text/x-handlebars-template">
-    <?php echo rex_i18n::rawMsg('cache_warmup_success_title') ?>
-</script>
-
-
-<script id="cache_warmup_tpl_title_incomplete" type="text/x-handlebars-template">
-    <?php echo rex_i18n::rawMsg('cache_warmup_incomplete_title') ?>
-</script>
-
-
-<script id="cache_warmup_tpl_title_report" type="text/x-handlebars-template">
-    <?php echo rex_i18n::rawMsg('cache_warmup_report_title') ?>
+<script id="cache_warmup_tpl_title_finished" type="text/x-handlebars-template">
+    <?php echo rex_i18n::rawMsg('cache_warmup_finished_title') ?>
 </script>
 
 
@@ -110,13 +98,8 @@ echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_wa
 
 <?php /* templates: icons */ ?>
 
-<script id="cache_warmup_tpl_icon_success" type="text/x-handlebars-template">
+<script id="cache_warmup_tpl_icon_finished" type="text/x-handlebars-template">
     <i class="fa fa-hand-peace-o fa-5x" aria-hidden="true"></i>
-</script>
-
-
-<script id="cache_warmup_tpl_icon_incomplete" type="text/x-handlebars-template">
-    <i class="fa fa-exclamation-circle fa-5x" aria-hidden="true"></i>
 </script>
 
 
@@ -130,28 +113,10 @@ echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_wa
 </script>
 
 
-<?php /* templates: alerts */ ?>
-
-<script id="cache_warmup_tpl_alert_error" type="text/x-handlebars-template">
-    <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <?php echo rex_i18n::rawMsg('cache_warmup_error_alert') ?></p>
-</script>
-
-
 <?php /* templates: texts */ ?>
 
-<script id="cache_warmup_tpl_text_success" type="text/x-handlebars-template">
-    <p><?php echo rex_i18n::rawMsg('cache_warmup_success_text') ?></p>
-</script>
-
-
-<script id="cache_warmup_tpl_text_incomplete" type="text/x-handlebars-template">
-    <p><?php echo rex_i18n::rawMsg('cache_warmup_incomplete_text') ?></p>
-    <p><?php echo rex_i18n::rawMsg('cache_warmup_incomplete_text2') ?></p>
-</script>
-
-
-<script id="cache_warmup_tpl_text_report" type="text/x-handlebars-template">
-    <p><?php echo rex_i18n::rawMsg('cache_warmup_incomplete_report') ?></p>
+<script id="cache_warmup_tpl_text_finished" type="text/x-handlebars-template">
+    <p><?php echo rex_i18n::rawMsg('cache_warmup_finished_text') ?></p>
 </script>
 
 
@@ -165,6 +130,13 @@ echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_wa
 </script>
 
 
+<?php /* templates: links */ ?>
+
+<script id="cache_warmup_tpl_error_link" type="text/x-handlebars-template">
+    <?php echo rex_i18n::rawMsg('cache_warmup_error_link') ?>
+</script>
+
+
 <?php /* templates: buttons */ ?>
 
 <script id="cache_warmup_tpl_button_success" type="text/x-handlebars-template">
@@ -172,15 +144,7 @@ echo '<script>var cacheWarmupItems = ' . cache_warmup_writer::buildJSON(cache_wa
 </script>
 
 
-<script id="cache_warmup_tpl_button_incomplete" type="text/x-handlebars-template">
-    <div class="text-right">
-        <button class="btn btn-primary cache-warmup__button--report"><?php echo rex_i18n::rawMsg('cache_warmup_button_report') ?></button>
-        <button class="btn btn-danger cache-warmup__button--cancel"><?php echo rex_i18n::rawMsg('cache_warmup_button_cancel') ?></button>
-    </div>
-</script>
-
-
-<script id="cache_warmup_tpl_button_error" type="text/x-handlebars-template">
+<script id="cache_warmup_tpl_button_again" type="text/x-handlebars-template">
     <div class="text-right">
         <button class="btn btn-link cache-warmup__button--again"><?php echo rex_i18n::rawMsg('cache_warmup_button_again') ?></button>
         <button class="btn btn-danger cache-warmup__button--cancel"><?php echo rex_i18n::rawMsg('cache_warmup_button_cancel') ?></button>

@@ -1,5 +1,5 @@
 package: cache_warmup
-version: '3.2.0'
+version: '3.3.0-dev'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/cache_warmup
 
@@ -23,6 +23,9 @@ pages:
         title: translate:title
         perm: admin
 
+console_commands:
+    cache_warmup:warmup: rex_cache_warmup_command
+
 requires:
     redaxo: '^5.0'
     php: '>=5.5'
@@ -35,6 +38,3 @@ conflicts:
         metainfo: '>=3'
         structure: '>=3'
         yform: '>=3'
-
-console_commands:
-    cache_warmup:warmup: rex_cache_warmup_command_warmup

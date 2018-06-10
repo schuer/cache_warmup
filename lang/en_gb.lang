@@ -1,33 +1,25 @@
-cache_warmup_title            = Cache Warmup
-cache_warmup_description      = Generates cache files for all pages and used images in advance to improve the initial website performance.
+cache_warmup_title           = Cache Warmup
+cache_warmup_description     = Generates cache files for all pages and used images in advance to improve the initial website performance.
 
-cache_warmup_button_start     = Generate cache
-cache_warmup_button_success   = Cool, thanks!
-cache_warmup_button_cancel    = Cancel
-cache_warmup_button_again     = Try again
-cache_warmup_button_report    = Report erstellen
+cache_warmup_button_start    = Generate cache
+cache_warmup_button_success  = Cool, thanks!
+cache_warmup_button_cancel   = Cancel
+cache_warmup_button_again    = Try again
 
-cache_warmup_pages_title      = Generating pages…
-cache_warmup_pages_progress   = Page <span class="cache-warmup__target__progress-from">1</span> of <span class="cache-warmup__target__progress-to">…</span>
+cache_warmup_pages_title     = Generating pages…
+cache_warmup_pages_progress  = Page <span class="cache-warmup__target__progress-from">1</span> of <span class="cache-warmup__target__progress-to">…</span>
 
-cache_warmup_images_title     = Generating images…
-cache_warmup_images_progress  = Image <span class="cache-warmup__target__progress-from">1</span> of <span class="cache-warmup__target__progress-to">…</span>
+cache_warmup_images_title    = Generating images…
+cache_warmup_images_progress = Image <span class="cache-warmup__target__progress-from">1</span> of <span class="cache-warmup__target__progress-to">…</span>
 
-cache_warmup_time_elapsed     = Time elapsed
+cache_warmup_time_elapsed    = Time elapsed
 
-cache_warmup_success_title    = Finished: cache prepared.
-cache_warmup_success_text     = The cache has been prepared for <strong><span class="cache-warmup__target__finished-pages-num">pages</span> <span class="cache-warmup__target__finished-join">and</span> <span class="cache-warmup__target__finished-images-num">images</span></strong>. It took some <strong class="cache-warmup__target__finished-time-num"></strong> and will save users from waiting too long when calling up the website for the first time.
+cache_warmup_finished_title  = Finished: cache prepared.
+cache_warmup_finished_text   = <p>The cache has been prepared for <strong><span class="cache-warmup__target__finished-pages-num">pages</span> <span class="cache-warmup__target__finished-join">and</span> <span class="cache-warmup__target__finished-images-num">images</span></strong>. It took some <strong class="cache-warmup__target__finished-time-num"></strong> and will save users from waiting too long when calling up the website for the first time.</p>
 
-cache_warmup_incomplete_title = Cache nicht vollständig generiert
-cache_warmup_incomplete_text  = Leider konnten nicht alle Dateien generiert werden. Das kann verschiedene Ursachen haben, etwa zu wenig Arbeits&shy;speicher für die Verar&shy;beitung großer Bilder oder Fehler im Code von Templates oder Modulen.
-cache_warmup_incomplete_text2 = Um die fehlerhaften Dateien zu ermitteln, kann ein Report erstellt werden.
+cache_warmup_error_title     = Damn, something went wrong!
+cache_warmup_error_text      = <p>An error occured while generating the cache. Find details on the error page. We appreciate any support in improving the addon quality if you report issues at <a href="https://github.com/FriendsOfREDAXO/cache_warmup/issues">Github</a>. Thank you!</p>
+cache_warmup_error_link      = Link to error page
 
-cache_warmup_report_title     = Report
-cache_warmup_report_text      = Lorem ipsum report
-
-cache_warmup_error_title      = Damn, something went wrong!
-cache_warmup_error_text       = An error occured while generating the cache. We appreciate any support in improving the addon quality if you report issues at <a href="https://github.com/FriendsOfREDAXO/cache_warmup/issues">Github</a>. Thank you!
-cache_warmup_error_alert      = The cache cannot be generated completely.
-
-cache_warmup_nothing_title    = No content?
-cache_warmup_nothing_text     = I’m sorry but there’s nothing to cache. No images or text. Either REDAXO is empty or the required addons (<code>media_manager</code> for images and <code>structure</code> for content) are not available.
+cache_warmup_nothing_title   = No content?
+cache_warmup_nothing_text    = <p>I’m sorry but there’s nothing to cache. No images or text. Either REDAXO is empty or the required addons (<code>media_manager</code> for images and <code>structure</code> for content) are not available.</p>
