@@ -16,8 +16,8 @@ abstract class cache_warmup_selector
      */
     public static function prepareCacheItems($chunk = false, $useImageIds = false)
     {
+        $pages = self::getPagesArray();
         $images = self::getImagesArray();
-        $pages = self::getPagesArray();    
        
         // change image names to IDs
         if ($useImageIds) {
@@ -26,13 +26,13 @@ abstract class cache_warmup_selector
 
         // chunk items
         if ($chunk) {
-            $images['items'] = self::chunk($images['items'], rex_addon::get('cache_warmup')->getConfig('chunkSizeImages'));
             $pages['items'] = self::chunk($pages['items'], rex_addon::get('cache_warmup')->getConfig('chunkSizePages'));
+            $images['items'] = self::chunk($images['items'], rex_addon::get('cache_warmup')->getConfig('chunkSizeImages'));
         }
 
         return array(
-            'images' => $images,
-            'pages' => $pages
+            'pages' => $pages,
+            'images' => $images
         );
     }
 
@@ -276,7 +276,7 @@ abstract class cache_warmup_selector
                             }
                         }
                     }
-                    rex_media::clearInstance($item);
+                    rex_media::clearInstance($media);
                 }
             }
         }

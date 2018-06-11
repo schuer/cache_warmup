@@ -11,8 +11,8 @@ class rex_cache_warmup_command extends rex_console_command
     protected function configure()
     {
         $this
-            ->setName('cache_warmup:warmup')
-            ->setDescription('Generates cache')
+            ->setName('cache:warmup')
+            ->setDescription('Pre-generates cache files for pages and images')
             ->setHelp('Generates cache files for all pages and used images in advance to improve the initial website performance.')
         ;
     }
@@ -25,6 +25,13 @@ class rex_cache_warmup_command extends rex_console_command
         ProgressBar::setFormatDefinition('custom', "%message:-21s%  [%bar%]  %current%/%max% ");
 
 
+        $warnings = [];
+        set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$warnings) {
+            $warnings[] = rex_error_handler::getErrorType($errno).": $errstr in $errfile on line $errline";
+            return true;
+        }, E_WARNING|E_USER_WARNING|E_NOTICE|E_USER_NOTICE|E_DEPRECATED|E_USER_DEPRECATED|E_STRICT);
+
+
         $items = cache_warmup_selector::prepareCacheItems(false, false);
         foreach ($items as $k => $v) {
 
@@ -33,24 +40,42 @@ class rex_cache_warmup_command extends rex_console_command
             if (class_exists($generatorClass)) {
                 $generator = new $generatorClass();
 
-                $progressBar = new ProgressBar($output, $v['count']);
-                $progressBar->setFormat('custom');
-                // $progressBar->setRedrawFrequency(100);
-                $progressBar->setBarWidth(40);
-                $progressBar->setMessage('Generating ' . $k . '…');
-                $progressBar->start();
-
-                foreach ($v['items'] as $item) {
-                    $generator->generateCache(array($item));
-                    $progressBar->advance();
+                if (!$io->isVerbose()) {
+                    $progressBar = new ProgressBar($output, $v['count']);
+                    $progressBar->setFormat('custom');
+                    // $progressBar->setRedrawFrequency(100);
+                    $progressBar->setBarWidth(40);
+                    $progressBar->setMessage('Generating ' . $k . '…');
+                    $progressBar->start();
                 }
 
-                $progressBar->finish();
+                $counter = 1;
+                foreach ($v['items'] as $item) {
+
+                    if ($io->isVerbose()) {
+                        $io->writeln($counter . '/' . $v['count'] . ' - Generate image ' . $item[0] . ' with mediatype ' . $item[1]);
+                    }
+
+                    $generator->generateCache(array($item));
+
+                    if (!$io->isVerbose()) {
+                        $progressBar->advance();
+                    }
+                    $counter++;
+                }
+
+                if (!$io->isVerbose()) {
+                    $progressBar->finish();
+                }
                 $io->newLine();
             }
         }
 
-        $io->newLine(2);
+        $io->newLine();
         $io->success('Finished warmup.');
+
+
+        $warnings = array_unique($warnings);
+        dump($warnings);
     }
 }
